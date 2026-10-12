@@ -1,0 +1,156 @@
+// =========================================== DAY 1 ===================================================
+    npm : node package manager; used for installation
+    npx : node package executor; used to execute 
+
+    Creating react app:
+        - npx create-react-app projecFolderName : creates a complete folder to build, run and test a react app with all necessary things installed and files created
+
+        - cd projectFolderName : to open or enter that folder.
+        
+        - dir / ls : command taht returns an index / names of all the content inside the folder you are in. (package.json should exist in out project folder)
+
+        - cd .. : used to come out of the folder we were in
+
+        - npm run start : executes/runs our project in browser live
+        
+        - Ctrl+C : useful to get writing control bcak in terminal when running a process
+
+        - npm run build : a build folder is created and all the react code is converted to JS
+
+    // However, creating oroject using npx create-react-app is not feasible since its too bulky and comes with way more things and packages than what are actually needed.
+    // So we create a Vite project:
+
+    Creating a vite project: 
+        npx create vite@latest
+            - Project name: 
+            - Select a framework : React
+            - Select a vraiant : JavaScript
+            - Which linter to use : ESLint
+            - Install with npm and start now? : Asks whether to create node modules folder right away 
+
+        // to install node modules folder in this vite project if you clicked no before:
+            - cd viteProjectFolder : enter project folder
+            - npm i / npm install : created node module folder and installs the node modules
+
+        - npm run dev : runs vite project in chorme
+
+    // Most of the time we will be working in the src folder in our projects
+        // in App.js in src folder, we can chaneg function App(){ return (<h>heading to return</h> and other body elements); }      export default App;     All we need to return a simple website with a heading for now and all other things can be deleted inside it.
+        // this App.js file is exposted from App.js as we can see and then imported into index.js using line
+            import App from './App'; 
+        // So we only need 2 files in our src folder to run the project (with no styling):
+            1. App.js (in react project) / App.jsx (in vite project)
+            2. index.js (in react project) / main.jsx (in vite project)
+
+// =============================================== DAY 2 =============================================
+
+    // File of importance exists inside public folder of our project and it is the 'index.html' file which is our Single Page Application (SPA).
+    // React is a library. ReactDOM and React Native are its implementation on web and android respectively. We are using/importing reactDOM (can be seen inside our index.js or main.js in src fodler).
+    // Read index.js file in 01basicreact.
+
+    // Creating custom react/vite component:
+        1. Create new jsx file in src folder of vite project (lets say Chai.jsx).
+        2. create a function whose name begins with uppercase letter function Chai(){}  in our case.
+        3. return html from this function and at the end of file:    export default Chai
+        4. Import this Chai inside App.jsx and inside the function App() return this Chai function using its tag: <Chai />
+
+        // These function jsx files can only return one HTML element. If we want to use multiple HTML elements we can return a <div></div> with all the othe elements inside it as child elememts.
+        // Or we can return our elements inside <> </>  which are called fragments.
+        // Take a look at App.jsx
+
+        // The same procedure can be followed while creating custom react components. The only difference is that the files are .js files or it can also run .jsx files just fine.
+
+        // IMPOTANT: By convention always name the new component files starting with uppercase letter and the function inside them too. Use .jsx in vite project and .js in react projects.
+
+
+    // WORKING:
+
+        // HOW REACT WORKS:
+            // 1. React is a JavaScript library used to build user interfaces (UI) using reusable components.
+            // 2. Components are JavaScript functions that return JSX, a syntax that looks like HTML but is written inside JavaScript.
+            // 3. Components can be imported into other components, forming a component tree, with App usually being the root component.
+            // 4. ReactDOM connects React to the browser's actual DOM. createRoot() creates a React root inside the HTML element with id="root", and root.render(<App />) displays the App component there.
+            // 5. React manages UI updates by comparing the new render output with the previous one and updating the necessary parts of the actual DOM. This is called reconciliation.
+            // 6. JSX is transformed into JavaScript by the project's build tools before the browser executes it.
+
+        // HOW VITE WORKS:
+            // 1. Vite is a frontend build tool, NOT a replacement for React. React handles the UI, while Vite handles development and building.
+            // 2. During development, npm run dev starts Vite's development server, which serves our app and supports fast updates through Hot Module Replacement (HMR).
+            // 3. In a Vite project, index.html is the entry point. It loads the JavaScript entry file, usually src/main.jsx, through a <script type="module"> tag.
+            // 4. main.jsx imports React, ReactDOM, App.jsx and other required files, then renders the App component into the root element in index.html.
+            // 5. Vite processes JSX and other imported files during development, allowing us to see changes quickly without restarting the server in most cases.
+            // 6. npm run build creates an optimized production build, usually inside the dist folder, containing the assets needed to deploy the website.
+
+        // REACT + VITE WORKFLOW:
+            // index.html -> main.jsx -> App.jsx -> Other components
+            // index.html provides the root HTML element, main.jsx starts the React app,
+            // App.jsx organizes the UI, and other components build individual parts of it.
+
+        // IMPORTANT:
+            // - React is a library; Vite is a build tool and development server.
+            // - ReactDOM is the browser-specific package that lets React manage the DOM.
+            // - npm installs packages and runs scripts defined in package.json.
+            // - npx executes package commands without necessarily requiring a global installation.
+            // - In Create React App, react-scripts manages the development server and build process.
+            // - In Vite, index.html explicitly loads the JavaScript entry file.
+            // - React uses a real DOM, not a separate virtual DOM that directly replaces the webpage.
+            //   It calculates UI changes and applies the necessary updates to the real DOM.
+
+    // App.jsx is actually a function which is called using <App /> tag inside render function of our index.js or main.jsx file. So we can even create our own custom MyApp function and call it using <MyApp /> tag inside our main.jsx.
+    // Look at main.jsx in 01vitereact.
+    // Also we can see how react works in the background by looking at customReact.js inside customReact folder where we created a small working React library demo.
+
+        // 1. First, we created our own customRender() function that takes two arguments:
+        //    reactElement (our custom object) and container (the root DOM element).
+        //    It reads the object and manually creates an HTML element using document.createElement().
+
+        // 2. We used reactElement.type to decide which HTML element to create, and
+        //    domElement.innerHTML = reactElement.children to insert its content.
+
+        // 3. Initially, we could set attributes like href and target individually using
+        //    setAttribute(). But this would require writing separate lines for every attribute.
+        //    So, we used a for...in loop to iterate over all properties inside reactElement.props
+        //    and dynamically assign each one using setAttribute().
+
+        // 4. We skipped the "children" property inside the loop because it represents the
+        //    element's content, which we had already handled separately.
+
+        // 5. Finally, we used container.appendChild(domElement) to insert the created element
+        //    into the actual webpage. This helped us understand how a basic custom renderer works.
+
+        // 6. Next, we created a custom React element as a normal JavaScript object containing
+        //    type, props and children. Our customRender() could render it because we wrote the
+        //    function to understand this particular object structure.
+
+        // 7. We then tried passing the same custom object directly to React's root.render().
+        //    It did not work because React expects a valid React node, not an arbitrary object
+        //    with properties that we chose ourselves.
+
+        // 8. To understand how React elements are created, we wrote an anchor element using JSX.
+        //    JSX looks like HTML, but it is transformed into JavaScript by the build tools.
+        //    The result is a valid React element that React can render.
+
+        // 9. We also created the same anchor element using React.createElement(), passing:
+        //    - "a" as the element type
+        //    - An object containing href and target as its props
+        //    - The link text and a variable as its children
+        //    This creates a valid React element without writing JSX.
+
+        // 10. We declared a variable and passed it as a child to React.createElement().
+        //     The variable's value becomes part of the rendered link text. In JSX, we would
+        //     insert the same variable using curly braces: {variable}.
+
+        // 11. We created a MyApp() component that returns JSX and learned that it can be
+        //     rendered using <MyApp />. React recognises this as a component and manages its
+        //     rendering. Although calling MyApp() directly may work in simple cases, we should
+        //     use <MyApp /> so React can manage the component correctly.
+
+        // 12. Finally, we used createRoot(document.getElementById("root")) to connect React
+        //     to the root element in index.html, and root.render() to display our chosen
+        //     component or React element on the webpage.
+
+
+// ================================================ DAY 3 ====================================================
+
+
+
